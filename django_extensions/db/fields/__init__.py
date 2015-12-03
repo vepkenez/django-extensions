@@ -22,6 +22,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db.models import DateTimeField, CharField, SlugField
 from django.utils.crypto import get_random_string
 from django.template.defaultfilters import slugify
+from django.conf import settings
 
 try:
     from django.utils.timezone import now as datetime_now
@@ -36,7 +37,7 @@ except ImportError:
     from django.utils.encoding import force_text as force_unicode  # NOQA
 
 
-MAX_UNIQUE_QUERY_ATTEMPTS = 100
+MAX_UNIQUE_QUERY_ATTEMPTS = getattr(settings, 'AUTOSLUGFIELD_MAX_UNIQUE_QUERY_ATTEMPTS', 100)
 
 
 class UniqueFieldMixin(object):
